@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS HW 4</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="./js/task-1.js" defer></script>
+    <script src="./js/task-2.js" defer></script>
+    <script src="./js/task-3.js" defer></script>
+  </head>
+  <body>
+    <h2>Task 1:</h2>
+    <pre><code id="code1" class="javascript"></code></pre>
+
+    <h2>Task 2:</h2>
+    <pre><code id="code2" class="javascript"></code></pre>
+
+    <h2>Task 3:</h2>
+    <pre><code id="code3" class="javascript"></code></pre>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const loadFiles = (fileArray) => {
+          fileArray.forEach((fileName, index) => {
+            const elementId = `code${index + 1}`;
+            fetch('./js/' + fileName)
+              .then(response => response.text())
+              .then(data => {
+                const codeElement = document.getElementById(elementId);
+                codeElement.textContent = data;
+                hljs.highlightElement(codeElement);
+              })
+              .catch(error => {
+                console.error(`Error loading ${fileName}:`, error);
+              });
+          });
+        };
+    
+        loadFiles(['task-1.js', 'task-2.js', 'task-3.js']);
+      });
+    </script>
+  </body>
+</html>
